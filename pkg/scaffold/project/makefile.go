@@ -51,6 +51,8 @@ func (c *Makefile) GetInput() (input.Input, error) {
 var makefileTemplate = `
 # Image URL to use all building/pushing image targets
 IMG ?= {{ .Image }}
+GROUP ?=
+VERSION ?=
 
 all: test manager
 
@@ -90,6 +92,13 @@ vet:
 # Generate code
 generate:
 	go generate ./pkg/... ./cmd/...
+
+# Generate client code
+genclient:
+	./vendor/k8s.io/code-generator/generate-groups.sh all \
+		{{ .Repo }}/pkg/client \
+		{{ .Repo }}/pkg/apis \
+		${GROUP}:${VERSION}
 
 # Build the docker image
 docker-build: test

@@ -1,6 +1,8 @@
 
 # Image URL to use all building/pushing image targets
 IMG ?= controller:latest
+GROUP ?=
+VERSION ?=
 
 all: test manager
 
@@ -40,6 +42,13 @@ vet:
 # Generate code
 generate:
 	go generate ./pkg/... ./cmd/...
+
+# Generate client code
+genclient:
+	./vendor/k8s.io/code-generator/generate-groups.sh all \
+		sigs.k8s.io/kubebuilder/test/project/pkg/client \
+		sigs.k8s.io/kubebuilder/test/project/pkg/apis \
+		${GROUP}:${VERSION}
 
 # Build the docker image
 docker-build: test
