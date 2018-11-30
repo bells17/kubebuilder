@@ -13,10 +13,11 @@
 #  limitations under the License.
 
 # Instructions to run locally:
-# Download google container builder: https://github.com/kubernetes-sigs/container-builder-local
+# Download and setup gcloud: https://cloud.google.com/sdk/docs/downloads-interactive
+# $ gcloud components install cloud-build-local
 # Set you GOOS and GOARCH vars to match your system
 # Set OUTPUT to the location to write the directory containing the tar.gz
-# $ container-builder-local --config=build/cloudbuild_with_goreleaser.yaml --dryrun=false \
+# $ cloud-build-local --config=build/cloudbuild_with_goreleaser.yaml --dryrun=false \
 #   --write-workspace=$OUTPUT .
 # Release tar will be in $OUTPUT
 
